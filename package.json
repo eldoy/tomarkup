@@ -1,6 +1,6 @@
 {
   "name": "tomarkup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Convert files to HTML markup",
   "main": "index.js",
   "directories": {
