@@ -1,0 +1,31 @@
+{
+  "name": "tomarkup",
+  "version": "0.1.0",
+  "description": "Convert files to HTML markup",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eldoy/tomarkup.git"
+  },
+  "author": "Vidar Eldøy <vidar@eldoy.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eldoy/tomarkup/issues"
+  },
+  "homepage": "https://github.com/eldoy/tomarkup#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "highlight.js": "^10.5.0",
+    "marked": "^1.2.7",
+    "mustache": "^4.1.0",
+    "node-emoji": "^1.10.0"
+  }
+}
