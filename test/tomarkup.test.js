@@ -24,7 +24,7 @@ test('make HTML from html with mustache data', () => {
   expect(flatten(result)).toBe(`<h1>bye</h1>`)
 })
 
-test.only('make HTML with smileys', () => {
+test('make HTML with smileys', () => {
   const result = tomarkup()('test/data/file4.md')
   expect(flatten(result)).toBe('<p>😃</p>')
 })
