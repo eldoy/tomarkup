@@ -3,6 +3,7 @@ const path = require('path')
 const marked = require('marked')
 const hljs = require('highlight.js')
 const mustache = require('mustache')
+const emoji = require('node-emoji')
 
 function strip(str) {
   return str.split('\n').map(line => line.trim()).join('\n')
@@ -26,6 +27,7 @@ module.exports = function(options = {}) {
       }
     }
     content = strip(content)
+    content = emoji.emojify(content)
     if (ext !== '.html') {
       content = marked(content)
     }
