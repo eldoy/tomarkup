@@ -59,6 +59,6 @@ module.exports = function(options = {}) {
     if (ext !== '.html') content = marked(content)
     if (data) content = mustache.render(content, data)
 
-    return content
+    return { content }
   }
 }
