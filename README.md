@@ -8,8 +8,9 @@ Features:
 * Mustache support for template data
 * Automatic highlight code syntax
 * Emoji support
+* "Front matter" support
 
-Based on [marked.js](https://github.com/markedjs/marked), [mustache](https://github.com/janl/mustache.js), [node-emoji](https://github.com/omnidan/node-emoji) and [highlight.js.](https://github.com/highlightjs/highlight.js)
+Based on [marked.js](https://github.com/markedjs/marked), [mustache](https://github.com/janl/mustache.js), [node-emoji](https://github.com/omnidan/node-emoji) and [prismjs.](https://github.com/PrismJS/prism)
 
 ### Install
 ```bash
@@ -24,16 +25,19 @@ const tomarkup = require('tomarkup')
 const formatter = tomarkup({ highlight: false })
 
 // Convert file
-const html = formatter('file.md')
+const { html } = formatter('file.md')
 
-// Convert file with data
-const html = formatter('file.md', { hello: 'waveorb' })
+// Convert file with params
+const { html } = formatter('file.md', { hello: 'waveorb' })
 
-// Convert markdown content with data
-const html = formatter('# Hello', { hello: 'waveorb' })
+// Convert markdown content with params
+const { html } = formatter('# Hello', { hello: 'waveorb' })
 
-// Convert html with data
-const html = formatter('file.html', { hello: 'waveorb' })
+// Convert html with params
+const { html } = formatter('file.html', { hello: 'waveorb' })
+
+// Extract HTML and data
+const { html, data } = formatter('file.md')
 ```
 
 MIT Licensed. Enjoy!
