@@ -28,3 +28,13 @@ test('make HTML with smileys', () => {
   const result = tomarkup()('test/data/file4.md')
   expect(flatten(result)).toBe('<p>😃</p>')
 })
+
+test('should work with youtube videos', () => {
+  const result = tomarkup()('test/data/file5.md')
+  expect(flatten(result)).toBe(`<p>Hello, check this video out:</p><div class=\"video-embed\"><iframe class=\"video\" src=\"https://www.youtube.com/embed/j800SVeiS5I\" allowfullscreen></iframe></div>`)
+})
+
+test('should work with vimeo videos', () => {
+  const result = tomarkup()('test/data/file6.md')
+  expect(flatten(result)).toBe(`<p>Hello, check this video out:</p><div class=\"video-embed\"><iframe class=\"video\" src=\"//player.vimeo.com/video/306487511\" allowfullscreen></iframe></div>`)
+})
