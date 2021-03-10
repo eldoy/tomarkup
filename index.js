@@ -1,18 +1,27 @@
 const fs = require('fs')
 const path = require('path')
-const marked = require('marked')
-const hljs = require('highlight.js')
 const mustache = require('mustache')
 const emoji = require('node-emoji')
+const marked = require('marked')
+const prism = require('prismjs')
+require('prismjs/components/')()
+
+const markdownOptions = {
+  renderer: new marked.Renderer(),
+  highlight: function(code, lang = 'md') {
+    return prism.highlight(code, prism.languages[lang], lang)
+  },
+  pedantic: false,
+  gfm: true,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
+}
 
 module.exports = function(options = {}) {
-  if (options.highlight !== false) {
-    options.highlight = function(code, language) {
-      language = hljs.getLanguage(language) ? language : 'plaintext'
-      return hljs.highlight(language, code).value
-    }
-  }
-  marked.setOptions(options)
+  marked.setOptions({ ...markdownOptions, ...options })
 
   return function(content, data) {
     const ext = path.extname(content)

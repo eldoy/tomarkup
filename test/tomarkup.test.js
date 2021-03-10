@@ -6,7 +6,7 @@ function flatten(str) {
 
 test('make HTML from markdown with default highlight', () => {
   const result = tomarkup()('test/data/file1.md')
-  expect(flatten(result)).toBe(`<h1 id="hello">Hello</h1><pre><code class="language-js"><span class="hljs-built_in">console</span>.log()</code></pre>`)
+  expect(flatten(result)).toBe(`<h1 id=\"hello\">Hello</h1><pre><code class=\"language-js\"><span class=\"token console class-name\">console</span><span class=\"token punctuation\">.</span><span class=\"token method function property-access\">log</span><span class=\"token punctuation\">(</span><span class=\"token punctuation\">)</span></code></pre>`)
 })
 
 test('make HTML from markdown without highlight', () => {
