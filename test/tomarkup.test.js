@@ -39,6 +39,9 @@ test('should work with vimeo videos', () => {
   expect(flatten(result.content)).toBe(`<p>Hello, check this video out:</p><div class=\"video-embed\"><iframe class=\"video\" src=\"//player.vimeo.com/video/306487511\" allowfullscreen></iframe></div>`)
 })
 
-xtest('should extract data and content', () => {
-
+test('should extract data and content', () => {
+  const result = tomarkup()('test/data/file7.md')
+  expect(result.data.title).toBe('shadow')
+  expect(result.data.description).toBe('nice')
+  expect(flatten(result.content)).toBe('<p>Hello</p>')
 })

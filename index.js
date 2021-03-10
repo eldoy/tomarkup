@@ -44,7 +44,7 @@ function video(content) {
 module.exports = function(options = {}) {
   marked.setOptions({ ...markdownOptions, ...options })
 
-  return function(content, data) {
+  return function(content, params) {
     const ext = path.extname(content)
     if (['.html', '.md'].includes(ext)) {
       const file = path.join(process.cwd(), content)
@@ -53,12 +53,23 @@ module.exports = function(options = {}) {
       }
     }
 
+    // Extract data
+    const data = {}
+    const matches = content.match(/^-{3}(.+?)-{3}/s)
+    if (matches) {
+      content = content.replace(matches[0], '')
+      matches[1].split('\n').forEach(line => {
+        const [key, value = ''] = line.split(':').map(item => item.trim())
+        data[key] = value
+      })
+    }
+
     content = emoji.emojify(content)
     content = video(content)
 
     if (ext !== '.html') content = marked(content)
-    if (data) content = mustache.render(content, data)
+    if (params) content = mustache.render(content, params)
 
-    return { content }
+    return { content, data }
   }
 }
