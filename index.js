@@ -67,9 +67,9 @@ module.exports = function(options = {}) {
     content = emoji.emojify(content)
     content = video(content)
 
-    if (ext !== '.html') content = marked(content)
+    if (ext != '.html') content = marked(content)
     if (params) content = mustache.render(content, params)
 
-    return { content, data }
+    return { html: content, data }
   }
 }
