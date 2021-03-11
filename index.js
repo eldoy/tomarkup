@@ -59,8 +59,8 @@ module.exports = function(options = {}) {
     if (matches) {
       content = content.replace(matches[0], '')
       matches[1].split('\n').forEach(line => {
-        const [key, value = ''] = line.split(':').map(item => item.trim())
-        data[key] = value
+        let [key, ...value] = line.split(':')
+        data[key.trim()] = value.join(':').trim()
       })
     }
 
