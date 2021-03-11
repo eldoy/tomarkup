@@ -5,6 +5,7 @@ This library makes it easy to convert markdown to html.
 Features:
 
 * Github flavored Markdown to HTML, raw text and files
+* Converts youtube and vimeo video links to iframes
 * Mustache support for template data
 * Automatic highlight code syntax
 * Emoji support
