@@ -40,8 +40,11 @@ test('should work with vimeo videos', () => {
 })
 
 test('should extract data and content', () => {
-  const result = tomarkup()('test/data/file7.md')
-  expect(result.data.title).toBe('shadow')
-  expect(result.data.description).toBe('nice')
-  expect(flatten(result.html)).toBe('<p>Hello</p>')
+  const { html, data } = tomarkup()('test/data/file7.md')
+  expect(data.title).toBe('shadow')
+  expect(data.description).toBe('nice')
+  expect(data.published).toEqual(true)
+  expect(data.hits).toEqual(66)
+  expect(typeof data.published_at.getDate).toBe('function')
+  expect(flatten(html)).toBe('<p>Hello</p>')
 })

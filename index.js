@@ -41,6 +41,29 @@ function video(content) {
   return content
 }
 
+function extract(line) {
+  let [key, ...value] = line.split(':')
+  if (key = key.trim()) {
+    value = value.join(':').trim()
+    if (value == 'false') {
+      value = false
+    } else if (value == 'true') {
+      value = true
+    } else if (key.endsWith('_at')) {
+      const date = new Date(value)
+      if (typeof date.getTime == 'function') {
+        value = date
+      }
+    } else if (/^\d+$/.test(value)) {
+      value = parseInt(value)
+    } else if (/^\d+\.\d+$/.test(value)) {
+      value = parseFloat(value)
+    }
+    return [key, value]
+  }
+  return []
+}
+
 module.exports = function(options = {}) {
   marked.setOptions({ ...markdownOptions, ...options })
 
@@ -53,16 +76,14 @@ module.exports = function(options = {}) {
       }
     }
 
-    // Extract data
+    // Extract front matter data
     const data = {}
     const matches = content.match(/^-{3}(.+?)-{3}/s)
     if (matches) {
       content = content.replace(matches[0], '')
       matches[1].split('\n').forEach(line => {
-        let [key, ...value] = line.split(':')
-        if (key.trim()) {
-          data[key.trim()] = value.join(':').trim()
-        }
+        const [key, value] = extract(line)
+        if (key) data[key] = value
       })
     }
 
