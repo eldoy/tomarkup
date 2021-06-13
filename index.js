@@ -6,7 +6,8 @@ const marked = require('marked')
 const prism = require('prismjs')
 require('prismjs/components/')()
 
-const markdownOptions = {
+const DEFAULT_OPTIONS = {
+  // Markdown options
   renderer: new marked.Renderer(),
   highlight: function(code, lang = 'md') {
     return prism.highlight(code, prism.languages[lang], lang)
@@ -17,7 +18,12 @@ const markdownOptions = {
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  xhtml: false
+  xhtml: false,
+
+  // Other options
+  video: true,
+  emoji: true,
+  data: true
 }
 
 const ytx = /!\[.*\]\((https?:\/\/)?(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\?\S+)?\)/
@@ -65,8 +71,8 @@ function extract(line) {
 }
 
 module.exports = function(options = {}) {
-  marked.setOptions({ ...markdownOptions, ...options })
-
+  options = { ...DEFAULT_OPTIONS, ...options }
+  marked.setOptions(options)
   return function(content, params) {
     const ext = path.extname(content)
     if (['.html', '.md'].includes(ext)) {
@@ -78,17 +84,19 @@ module.exports = function(options = {}) {
 
     // Extract front matter data
     const data = {}
-    const matches = content.match(/^-{3}(.+?)-{3}/s)
-    if (matches) {
-      content = content.replace(matches[0], '')
-      matches[1].split('\n').forEach(line => {
-        const [key, value] = extract(line)
-        if (key) data[key] = value
-      })
+    if (options.data) {
+      const matches = content.match(/^-{3}(.+?)-{3}/s)
+      if (matches) {
+        content = content.replace(matches[0], '')
+        matches[1].split('\n').forEach(line => {
+          const [key, value] = extract(line)
+          if (key) data[key] = value
+        })
+      }
     }
 
-    content = emoji.emojify(content)
-    content = video(content)
+    if (options.emoji) content = emoji.emojify(content)
+    if (options.video) content = video(content)
 
     if (ext != '.html') content = marked(content)
     if (params) content = mustache.render(content, params)
