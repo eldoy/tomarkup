@@ -48,3 +48,8 @@ test('should extract data and content', () => {
   expect(typeof data.published_at.getDate).toBe('function')
   expect(flatten(html)).toBe('<p>Hello</p>')
 })
+
+test('should work with highlight', () => {
+  const result = tomarkup()('```\nconsole.log()\n```')
+  expect(result).toBeDefined()
+})

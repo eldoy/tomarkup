@@ -9,8 +9,8 @@ require('prismjs/components/')()
 const DEFAULT_OPTIONS = {
   // Markdown options
   renderer: new marked.Renderer(),
-  highlight: function(code, lang = 'md') {
-    return prism.highlight(code, prism.languages[lang], lang)
+  highlight: function(code, lang) {
+    return prism.highlight(code, prism.languages[lang || 'shell'], 'shell')
   },
   pedantic: false,
   gfm: true,
@@ -73,6 +73,7 @@ function extract(line) {
 module.exports = function(options = {}) {
   options = { ...DEFAULT_OPTIONS, ...options }
   marked.setOptions(options)
+
   return function(content, params) {
     const ext = path.extname(content)
     if (['.html', '.md'].includes(ext)) {
