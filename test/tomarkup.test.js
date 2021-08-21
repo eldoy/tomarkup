@@ -52,4 +52,10 @@ test('should extract data and content', () => {
 test('should work with highlight', () => {
   const result = tomarkup()('```\nconsole.log()\n```')
   expect(result).toBeDefined()
+
+  const result2 = tomarkup()('```asdf\nconsole.log()\n```')
+  expect(result2).toBeDefined()
+
+  const result3 = tomarkup()('```js\nconsole.log()\n```')
+  expect(result3).toBeDefined()
 })
