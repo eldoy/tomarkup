@@ -26,9 +26,11 @@ const tomarkup = require('tomarkup')
 const formatter = tomarkup({ highlight: false })
 
 // Convert file
+const formatter = tomarkup({ file: true })
 const { html } = formatter('file.md')
 
 // Convert file with params
+const formatter = tomarkup({ file: true })
 const { html } = formatter('file.md', { hello: 'waveorb' })
 
 // Convert markdown content with params
@@ -37,8 +39,8 @@ const { html } = formatter('# Hello', { hello: 'waveorb' })
 // Convert html with params
 const { html } = formatter('file.html', { hello: 'waveorb' })
 
-// Extract HTML and data
-const { html, data } = formatter('file.md')
+// Extract HTML, data and markdown
+const { html, data, md } = formatter('file.md')
 ```
 
 MIT Licensed. Enjoy!
