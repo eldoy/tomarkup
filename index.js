@@ -5,7 +5,6 @@ const emoji = require('node-emoji')
 const marked = require('marked')
 const prism = require('prismjs')
 require('prismjs/components/')()
-// console.log(typeof prism.languages)
 
 const DEFAULT_OPTIONS = {
   // Markdown options
