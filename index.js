@@ -79,7 +79,7 @@ module.exports = function(options = {}) {
   marked.setOptions(options)
 
   return function(html, params) {
-    let ext = ''
+    let ext = '', md = ''
     if (options.file) {
       ext = path.extname(html)
       if (['.html', '.md'].includes(ext)) {
@@ -97,7 +97,7 @@ module.exports = function(options = {}) {
     if (options.data) {
       const matches = html.match(/^-{3}(.+?)-{3}/s)
       if (matches) {
-        html = html.replace(matches[0], '')
+        md = html = html.replace(matches[0], '')
         matches[1].split('\n').forEach(line => {
           const [key, value] = extract(line)
           if (key) data[key] = value
@@ -111,6 +111,6 @@ module.exports = function(options = {}) {
     if (ext != '.html') html = marked(html)
     if (params) html = mustache.render(html, params)
 
-    return { html, data }
+    return { html, data, md }
   }
 }
