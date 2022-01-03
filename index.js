@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const mustache = require('mustache')
 const emoji = require('node-emoji')
-const marked = require('marked')
+const { marked } = require('marked')
 const prism = require('prismjs')
 require('prismjs/components/')()
 
@@ -24,6 +24,7 @@ const DEFAULT_OPTIONS = {
   xhtml: false,
 
   // Other options
+  markdown: true,
   video: true,
   emoji: true,
   data: true,
@@ -107,8 +108,7 @@ module.exports = function(options = {}) {
 
     if (options.emoji) html = emoji.emojify(html)
     if (options.video) html = video(html)
-
-    if (ext != '.html') html = marked(html)
+    if (options.markdown) html = marked(html)
     if (params) html = mustache.render(html, params)
 
     return { html, data, md }
