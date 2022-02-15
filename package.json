@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/eldoy/tomarkup#readme",
   "devDependencies": {
-    "jest": "^27.4.5"
+    "jest": "^27.5.1"
   },
   "dependencies": {
-    "marked": "^4.0.8",
+    "marked": "^4.0.12",
     "mustache": "^4.2.0",
     "node-emoji": "^1.11.0",
-    "prismjs": "^1.25.0"
+    "prismjs": "^1.26.0"
   }
 }
