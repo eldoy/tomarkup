@@ -55,31 +55,32 @@ function video(content) {
   return content
 }
 
+function readfile(name) {
+  if (['.html', '.md'].includes(path.extname(name))) {
+    const file = path.join(process.cwd(), name)
+    if (fs.existsSync(file)) {
+      return fs.readFileSync(file, 'utf8')
+    }
+  }
+  return ''
+}
+
 module.exports = function (options = {}) {
   options = { ...DEFAULT_OPTIONS, ...options }
   marked.setOptions(options)
 
   return function (html, params) {
-    let ext = '',
-      md = ''
     if (options.file) {
-      ext = path.extname(html)
-      if (['.html', '.md'].includes(ext)) {
-        const file = path.join(process.cwd(), html)
-        if (fs.existsSync(file)) {
-          html = fs.readFileSync(file, 'utf8')
-        } else {
-          ext = ''
-        }
-      }
+      html = readfile(html)
     }
+    if (!html) return ''
 
     // Extract front matter data
-    let data
+    let data = {}
     if (options.data) {
       ;({ html, data } = brainmatter(html))
     }
-
+    let md = html
     if (options.emoji) html = emoji.emojify(html)
     if (options.video) html = video(html)
     if (options.markdown) html = marked(html)
