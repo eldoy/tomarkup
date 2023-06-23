@@ -73,7 +73,6 @@ module.exports = function (options = {}) {
     if (options.file) {
       html = readfile(html)
     }
-    if (!html) return ''
 
     // Extract front matter data
     let data = {}
