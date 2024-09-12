@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --watch",
+    "test": "nodemon --exec spekk",
     "update": "ncu -u -x marked && npm i"
   },
   "repository": {
@@ -20,9 +20,6 @@
     "url": "https://github.com/eldoy/tomarkup/issues"
   },
   "homepage": "https://github.com/eldoy/tomarkup#readme",
-  "devDependencies": {
-    "jest": "^29.5.0"
-  },
   "dependencies": {
     "brainmatter": "^0.1.0",
     "marked": "^4.0.12",
